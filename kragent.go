@@ -59,6 +59,9 @@ func main() {
 		// Check the QEMU Guest Agent Protocol Reference
 		// for how to handle commands: https://qemu-project.gitlab.io/qemu/interop/qemu-ga-ref.html
 		switch m.Execute {
+		case "guest-sync":
+			je.Encode(Return{m.Arguments.ID})
+			bw.Flush()
 		case "guest-sync-delimited":
 			bw.WriteByte(0xff)
 			je.Encode(Return{m.Arguments.ID})
